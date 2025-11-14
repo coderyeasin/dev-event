@@ -1,4 +1,6 @@
-import React from 'react'
+'use Client'
+
+import Image from 'next/image'
 
 const ExploreBtn = () => {
     return (
@@ -6,6 +8,7 @@ const ExploreBtn = () => {
         }>
             <a href="#events">
                 Explore Events
+                <Image src="/app/facicon.ico" alt="arrow-down" width={24} height={24} />
             </a>
         </button>
     )
