@@ -7,6 +7,13 @@ const Page = () => {
             <p className="text-center mt-5">Hackathons, Meetups and Conferences, All in One Place</p>
 
             <ExploreBtn />
+
+            <div className="text-center mt-5">
+                <h3>Featured Events</h3>
+                <ul className="events">
+                    
+                </ul>
+            </div>
         </section>
     )
 }
