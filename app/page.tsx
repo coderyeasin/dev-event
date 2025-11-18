@@ -1,5 +1,10 @@
 import ExploreBtn from "@/components/exploreBtn";
 
+const events = [
+    {image:'/images/event1.png',title:'Event 1'},
+    {image:'/images/event2.png',title:'Event 2'},
+]
+
 const Page = () => {
     return (
         <section>
