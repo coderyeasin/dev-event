@@ -10,10 +10,10 @@ const Navbar = () => {
                     {/*<Image src={} alt='logo' width={24} height={24} />*/}
                     <p>DevEvent</p>
                 </Link>
-                <ul>
-                    <Link href="/" >Home</Link>
-                    <Link href="/" >Events</Link>
-                    <Link href="/" >Create Event</Link>
+                <ul >
+                    <Link href="/" className="px-3">Home</Link>
+                    <Link href="/" className="px-3">Events</Link>
+                    <Link href="/" className="px-3">Create Event</Link>
                 </ul>
             </nav>
         </header>

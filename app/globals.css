@@ -254,7 +254,7 @@ body {
         @apply flex flex-wrap items-start gap-x-6 gap-y-14;
     }
     .explore-button{
-        @apply border-dark-200 bg-dark-100 mt-10 flex w-fit cursor-pointer flex-row items-center justify-center gap-2 rounded-full;
+        @apply border-dark-200 bg-dark-100 mt-10 p-4 flex w-fit cursor-pointer flex-row items-center justify-center gap-2 rounded-full;
     }
     .event-card{
         @apply flex flex-col gap-3;
