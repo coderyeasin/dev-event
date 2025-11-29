@@ -4,6 +4,11 @@ import Image from "next/image";
 interface Props {
     title: string;
     image: string;
+    slug: string;
+    location: string;
+    date: string;
+    time: string;
+
 }
 
 const EventCard = ({title,image}: Props) => {
@@ -11,7 +16,7 @@ const EventCard = ({title,image}: Props) => {
         <Link href={`/events`} id="event-card" className="event-card">
             <Image src={image} alt={title} width={410} height={300} className="poster" />
 
-        <p className="title">{title}</p>
+        <p className="truncate title">{title}</p>
         </Link>
     )
 }
