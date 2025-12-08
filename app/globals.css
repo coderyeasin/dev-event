@@ -265,6 +265,9 @@ body {
             @apply text-sm;
         }
     }
+    .card-content{
+        @apply flex flex-row gap-2 items-center;
+    }
 }
 
 @layer utilities {
