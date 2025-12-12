@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React from "react";
 
-const NotFound: React.FC = () => {
+const NotFound = () => {
   return (
     <html>
       <body className="flex flex-col items-center justify-center min-h-screen bg-white">
