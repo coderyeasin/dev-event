@@ -1,7 +1,5 @@
 "use client";
-import React from "react";
 
-// TypeScript props for Next.js global error boundary
 type GlobalErrorProps = {
   error: Error & { digest?: string };
   reset: () => void;
