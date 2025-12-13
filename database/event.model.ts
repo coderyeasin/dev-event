@@ -45,7 +45,7 @@ const EventSchema: Schema<IEvent> = new Schema<IEvent>(
 EventSchema.index({ slug: 1 }, { unique: true });
 
 /**
- * Pre-save hook for slug generation, date normalization, and validation
+ * Pre-validate hook for slug generation, date normalization, and validation
  */
 EventSchema.pre<IEvent>("validate", function (next) {
   // Generate slug only if title changed
@@ -57,13 +57,10 @@ EventSchema.pre<IEvent>("validate", function (next) {
       .substring(0, 50);
   }
 
-  // Normalize date to ISO format
+  // Validate/normalize date as YYYY-MM-DD (no timezone conversion)
   if (this.isModified("date")) {
-    const parsedDate = new Date(this.date);
-    if (isNaN(parsedDate.getTime())) {
-      return next(new Error("Invalid date format."));
-    }
-    this.date = parsedDate.toISOString().split("T")[0]; // YYYY-MM-DD
+    const m = /^\d{4}-\d{2}-\d{2}$/.test(this.date);
+    if (!m) return next(new Error("Date must be in YYYY-MM-DD format."));
   }
 
   // Normalize time to HH:mm format
