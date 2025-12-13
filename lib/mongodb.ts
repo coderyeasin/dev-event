@@ -8,17 +8,12 @@ interface MongooseGlobal {
 }
 
 declare global {
-  var mongoose: MongooseGlobal | undefined;
+  // eslint-disable-next-line no-var
+  var __mongooseCache: MongooseGlobal | undefined;
 }
 
-const cached: MongooseGlobal = global.mongoose || {
-  conn: null,
-  promise: null,
-};
-
-if (!global.mongoose) {
-  global.mongoose = cached;
-}
+const cached: MongooseGlobal =
+  globalThis.__mongooseCache ?? (globalThis.__mongooseCache = { conn: null, promise: null });
 
 export async function connectToDatabase(): Promise<Connection> {
   const MONGODB_URI = process.env.MONGODB_URI; // Moved inside the function

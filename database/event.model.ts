@@ -47,9 +47,9 @@ EventSchema.index({ slug: 1 }, { unique: true });
 /**
  * Pre-save hook for slug generation, date normalization, and validation
  */
-EventSchema.pre<IEvent>("save", function (next) {
+EventSchema.pre<IEvent>("validate", function (next) {
   // Generate slug only if title changed
-  if (this.isModified("title")) {
+  if (this.isNew || this.isModified("title") || !this.slug) {
     this.slug = this.title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
@@ -68,7 +68,7 @@ EventSchema.pre<IEvent>("save", function (next) {
 
   // Normalize time to HH:mm format
   if (this.isModified("time")) {
-    const timeMatch = /^([01]?\d|2[0-3]):[0-5]\d$/.test(this.time);
+    const timeMatch = /^(?:[01]\d|2[0-3]):[0-5]\d$/.test(this.time);
     if (!timeMatch) {
       return next(new Error("Time must be in HH:mm format."));
     }
