@@ -14,10 +14,10 @@ const Navbar = () => {
           <Link href="/" className="px-3 py-2">
             Home
           </Link>
-          <Link href="/" className="px-3 py-2">
+          <Link href="/events" className="px-3 py-2">
             Events
           </Link>
-          <Link href="/" className="px-3 py-2">
+          <Link href="/events/create" className="px-3 py-2">
             Create Event
           </Link>
         </ul>
