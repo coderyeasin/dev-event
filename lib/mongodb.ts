@@ -1,12 +1,6 @@
 import mongoose, { Connection } from "mongoose";
 
-const MONGODB_URI: string = process.env.MONGODB_URI || "";
-
-if (!MONGODB_URI) {
-  throw new Error(
-    "Please define the MONGODB_URI environment variable inside .env.local"
-  );
-}
+const MONGODB_URI: string = process.env.MONGODB_URI || ""; // This line is removed
 
 interface MongooseGlobal {
   conn: Connection | null;
@@ -27,6 +21,12 @@ if (!global.mongoose) {
 }
 
 export async function connectToDatabase(): Promise<Connection> {
+  const MONGODB_URI = process.env.MONGODB_URI; // Moved inside the function
+  if (!MONGODB_URI) {
+    throw new Error(
+      "Please define the MONGODB_URI environment variable inside .env.local"
+    );
+  }
   if (cached.conn) {
     // Return cached connection if available
     return cached.conn;
