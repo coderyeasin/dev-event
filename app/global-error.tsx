@@ -12,7 +12,7 @@ const GlobalError: React.FC<GlobalErrorProps> = ({ error, reset }) => {
         <h2 className="text-2xl font-bold text-red-700 mb-4">
           Something went wrong!
         </h2>
-        <pre className="text-gray-800 bg-gray-100 p-4 rounded-lg max-w-xl break-words mb-4">
+        <pre className="text-gray-800 bg-gray-100 p-4 rounded-lg max-w-xl wrap-break-word mb-4">
           {error.message}
         </pre>
         <button
