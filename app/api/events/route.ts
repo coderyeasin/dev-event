@@ -1,3 +1,4 @@
+import { Event } from "@/database/event.model";
 import connectToDatabase from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -14,6 +15,12 @@ export async function POST(req: NextRequest) {
         status: 400,
       });
     }
+    const createdEvent = await Event.create(event);
+    return NextResponse.json({
+      message: "Event Created Successfully",
+      status: 201,
+      event: createdEvent,
+    });
   } catch (e) {
     console.log(e);
     return NextResponse.json({
