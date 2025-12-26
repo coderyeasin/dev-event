@@ -1,7 +1,6 @@
 import mongoose, { Schema, Document, Model, Types } from "mongoose";
 import { Event } from "./event.model";
 
-// Booking TypeScript interface
 export interface IBooking extends Document {
   eventId: Types.ObjectId;
   email: string;
@@ -38,7 +37,7 @@ const BookingSchema: Schema<IBooking> = new Schema<IBooking>(
 );
 
 /**
- * Pre-save hook for reference validation
+ * Pre-save hook
  */
 BookingSchema.pre<IBooking>("save", async function (next) {
   // Validate eventId references an existing Event
