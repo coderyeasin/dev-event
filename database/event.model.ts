@@ -19,7 +19,6 @@ export interface IEvent extends Document {
   updatedAt: Date;
 }
 
-// Event Mongoose schema
 const EventSchema: Schema<IEvent> = new Schema<IEvent>(
   {
     title: { type: String, required: true, trim: true },
@@ -69,7 +68,6 @@ EventSchema.pre<IEvent>("validate", function (next) {
     if (!timeMatch) {
       return next(new Error("Time must be in HH:mm format."));
     }
-    // Already normalized
   }
 
   // Validate required fields are non-empty
