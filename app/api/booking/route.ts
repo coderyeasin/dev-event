@@ -1,6 +1,7 @@
 import connectToDatabase from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
+// Create a Booking
 export async function POST(req: NextRequest) {
   try {
     //connect to database
@@ -12,3 +13,6 @@ export async function POST(req: NextRequest) {
     });
   }
 }
+
+// Get All Bookings
+export async function GET() {}
