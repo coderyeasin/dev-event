@@ -75,7 +75,7 @@ export async function GET(
     }
 
     return NextResponse.json({
-      message: "An unknown error occurred",
+      message: "An unexpected error occurred",
       status: 500,
       error: e,
     });
