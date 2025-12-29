@@ -19,6 +19,19 @@ const EventDetailItems = ({
   </div>
 );
 
+const EventAgenda = ({ agendaItems }: { agendaItems: string[] }) => (
+  <div className="agenda">
+    <h2>Agenda</h2>
+    <ul>
+      {agendaItems.map((item) => (
+        <li key={item} className="agenda-item">
+          {item}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
 const EventDetailPage = async ({
   params,
 }: {
@@ -39,6 +52,8 @@ const EventDetailPage = async ({
       mode,
       agenda,
       audience,
+      tags,
+      organizer,
     },
   } = await req.json();
 
@@ -92,18 +107,11 @@ const EventDetailPage = async ({
             />
           </section>
 
+          <EventAgenda agendaItems={JSON.parse(agenda[0])} />
+
           <section className="flex flex-col gap-2 my-3">
-            <h2>Agenda</h2>
-            <EventDetailItems
-              icon="/icons/calendar.svg"
-              alt="calendar"
-              label={date}
-            />
-            <EventDetailItems
-              icon="/icons/clock.svg"
-              alt="clock"
-              label={time}
-            />
+            <h2>About the Organizer</h2>
+            <p className="text-lg font-semibold">{organizer}</p>
           </section>
         </div>
 
