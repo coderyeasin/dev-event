@@ -26,14 +26,16 @@ export async function GET(
 
     // validate slug
     if (!slug || typeof slug !== "string" || slug.trim() === "") {
-      return NextResponse.json({
-        message: "Invalid or missing slug parameter",
-        status: 400,
-      });
+      return NextResponse.json(
+        {
+          message: "Invalid or missing slug parameter",
+        },
+        { status: 400 }
+      );
     }
 
     // Sanitize slug (remove any potential malicious input)
-    const sanitizedSlug = slug.trim().toLocaleLowerCase();
+    const sanitizedSlug = slug.trim().toLowerCase();
 
     // Query event by slug
     const event = await Event.findOne({
@@ -42,18 +44,21 @@ export async function GET(
 
     // Handle event not found
     if (!event) {
-      return NextResponse.json({
-        message: `Event with slug ${sanitizedSlug} not found`,
-        status: 404,
-      });
+      return NextResponse.json(
+        {
+          message: `Event with slug ${sanitizedSlug} not found`,
+        },
+        { status: 404 }
+      );
     }
 
-    // Return Successful response with event data
-    return NextResponse.json({
-      message: "Event fetched Successfully",
-      status: 200,
-      event: event,
-    });
+    return NextResponse.json(
+      {
+        message: "Event fetched Successfully",
+        event,
+      },
+      { status: 200 }
+    );
   } catch (e) {
     if (process.env.NODE_ENV === "development") {
       console.error("Error fetching event by slug:", e);
@@ -74,10 +79,11 @@ export async function GET(
       });
     }
 
-    return NextResponse.json({
-      message: "An unexpected error occurred",
-      status: 500,
-      error: e,
-    });
+    return NextResponse.json(
+      {
+        message: "An unexpected error occurred",
+      },
+      { status: 500 }
+    );
   }
 }
