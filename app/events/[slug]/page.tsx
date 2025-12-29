@@ -32,6 +32,16 @@ const EventAgenda = ({ agendaItems }: { agendaItems: string[] }) => (
   </div>
 );
 
+const EventTags = ({ tags }: { tags: string[] }) => (
+  <div className="flex flex-row gap-1.5 flex-wrap">
+    {tags.map((tag) => (
+      <div className="bg-slate-700 px-3 py-2 rounded-full" key={tag}>
+        {tag}
+      </div>
+    ))}
+  </div>
+);
+
 const EventDetailPage = async ({
   params,
 }: {
@@ -113,6 +123,8 @@ const EventDetailPage = async ({
             <h2>About the Organizer</h2>
             <p className="text-lg font-semibold">{organizer}</p>
           </section>
+
+          <EventTags tags={JSON.parse(tags[0])} />
         </div>
 
         {/* Booking Form - Right Side */}
