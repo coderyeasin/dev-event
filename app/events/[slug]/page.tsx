@@ -13,8 +13,8 @@ const EventDetailItems = ({
   alt: string;
   label: string;
 }) => (
-  <div className="flex-row-gap-2 items-center">
-    <Image src={icon} alt={alt} width={17} height={17} className="text-white" />
+  <div className="flex flex-row gap-2 items-center">
+    <Image src={icon} alt={alt} width={17} height={17} className="bg-white" />
     <p>{label}</p>
   </div>
 );
@@ -60,11 +60,14 @@ const EventDetailPage = async ({
             height={800}
             className="banner"
           />
-          <section className="flex-col-gap-2">
-            <p className="text-lg font-bold">Overview:</p>
-            <p className="text-lg">{overview}</p>
+          <section className="flex-col-gap-2 my-3">
+            <p className="text-xl font-bold">Overview:</p>
+            <p className="text-lg">
+              {overview} {overview}
+            </p>
           </section>
-          <section className="flex-col-gap-2">
+
+          <section className="flex flex-col gap-2 my-3">
             <h2>Event Details</h2>
             <EventDetailItems
               icon="/icons/calendar.svg"
@@ -86,6 +89,20 @@ const EventDetailPage = async ({
               icon="/icons/audience.svg"
               alt="audience"
               label={audience}
+            />
+          </section>
+
+          <section className="flex flex-col gap-2 my-3">
+            <h2>Agenda</h2>
+            <EventDetailItems
+              icon="/icons/calendar.svg"
+              alt="calendar"
+              label={date}
+            />
+            <EventDetailItems
+              icon="/icons/clock.svg"
+              alt="clock"
+              label={time}
             />
           </section>
         </div>
