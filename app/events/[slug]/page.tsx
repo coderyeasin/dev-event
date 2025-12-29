@@ -4,10 +4,6 @@ import React from "react";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-if (!BASE_URL) {
-  throw new Error("NEXT_PUBLIC_BASE_URL environment variable is not set");
-}
-
 const EventDetailItems = ({
   icon,
   alt,
@@ -52,24 +48,43 @@ const EventDetailPage = async ({
   params: Promise<{ slug: string }>;
 }) => {
   const { slug } = await params;
+  let event;
+  try {
+    const req = await fetch(`${BASE_URL}/api/events/${slug}`, {
+      next: { revalidate: 60 },
+    });
 
-  const req = await fetch(`${BASE_URL}/api/events/${slug}`);
+    if (!req.ok) {
+      if (req.status === 404) {
+        return notFound();
+      }
+      throw new Error(`Failed to fetch event data: ${req.statusText}`);
+    }
+
+    const response = await req.json();
+    event = response.event;
+    if (!event) {
+      return notFound();
+    }
+  } catch (error) {
+    console.error("Error fetching event data:", error);
+    return notFound();
+  }
+
   const {
-    event: {
-      description,
-      image,
-      overview,
-      date,
-      title,
-      time,
-      location,
-      mode,
-      agenda,
-      audience,
-      tags,
-      organizer,
-    },
-  } = await req.json();
+    description,
+    image,
+    overview,
+    date,
+    title,
+    time,
+    location,
+    mode,
+    agenda,
+    audience,
+    tags,
+    organizer,
+  } = event;
 
   if (!description) return notFound();
 
