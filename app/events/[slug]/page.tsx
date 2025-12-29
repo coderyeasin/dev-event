@@ -20,11 +20,11 @@ const EventDetailItems = ({
 );
 
 const EventAgenda = ({ agendaItems }: { agendaItems: string[] }) => (
-  <div className="agenda">
-    <h2>Agenda</h2>
-    <ul>
+  <div className="agenda space-y-2 my-5">
+    <h2 className="">Agenda</h2>
+    <ul className="space-y-2">
       {agendaItems.map((item) => (
-        <li key={item} className="agenda-item">
+        <li key={item} className="agenda-item list-disc list-inside">
           {item}
         </li>
       ))}
@@ -33,7 +33,7 @@ const EventAgenda = ({ agendaItems }: { agendaItems: string[] }) => (
 );
 
 const EventTags = ({ tags }: { tags: string[] }) => (
-  <div className="flex flex-row gap-1.5 flex-wrap">
+  <div className="flex flex-row gap-1.5 flex-wrap my-5">
     {tags.map((tag) => (
       <div className="bg-slate-700 px-3 py-2 rounded-full" key={tag}>
         {tag}
@@ -75,9 +75,9 @@ const EventDetailPage = async ({
         <h1>Event Description</h1>
         <p className="m-2">{description}</p>
       </div>
-      <div className="details">
+      <div className="details flex flex-col lg:flex-row gap-10 w-full">
         {/* Event Content - Left SIde*/}
-        <div className="content">
+        <div className="content flex-1">
           <Image
             src={image}
             alt={title}
@@ -85,14 +85,14 @@ const EventDetailPage = async ({
             height={800}
             className="banner"
           />
-          <section className="flex-col-gap-2 my-3">
+          <section className="flex flex-col gap-2 my-5">
             <p className="text-xl font-bold">Overview:</p>
             <p className="text-lg">
               {overview} {overview}
             </p>
           </section>
 
-          <section className="flex flex-col gap-2 my-3">
+          <section className="flex flex-col gap-2 my-5">
             <h2>Event Details</h2>
             <EventDetailItems
               icon="/icons/calendar.svg"
@@ -119,16 +119,18 @@ const EventDetailPage = async ({
 
           <EventAgenda agendaItems={JSON.parse(agenda[0])} />
 
-          <section className="flex flex-col gap-2 my-3">
+          <section className="flex flex-col gap-2 my-7">
             <h2>About the Organizer</h2>
-            <p className="text-lg font-semibold">{organizer}</p>
+            <p className="text-lg font-semibold">
+              {organizer} <br /> {overview}
+            </p>
           </section>
 
           <EventTags tags={JSON.parse(tags[0])} />
         </div>
 
         {/* Booking Form - Right Side */}
-        <aside className="booking">
+        <aside className="booking w-1/3">
           <p className="text-lg font-semibold">Book Event</p>
         </aside>
       </div>
