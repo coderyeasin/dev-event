@@ -4,15 +4,24 @@ import React, { useState } from "react";
 const BookEvent = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setTimeout(() => {
+      setSubmitted(true);
+    }, 1000);
+  };
+
   return (
     <div id="book-event">
       {submitted ? (
-        <p className="text-green-500 text-sm">
+        <p className="text-green-500 text-sm my-5">
           Thank you for booking! We have received your request.
         </p>
       ) : (
-        <form>
-          <div>
+        <form onSubmit={handleSubmit}>
+          <div className="my-5">
             <label
               htmlFor="email"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
