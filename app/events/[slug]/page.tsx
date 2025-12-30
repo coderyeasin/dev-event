@@ -1,3 +1,4 @@
+import BookEvent from "@/components/BookEvent";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -88,6 +89,8 @@ const EventDetailPage = async ({
 
   if (!description) return notFound();
 
+  const bookings = 10;
+
   return (
     <section id="event">
       <div className="header">
@@ -150,8 +153,16 @@ const EventDetailPage = async ({
 
         {/* Booking Form - Right Side */}
         <aside className="booking w-1/3">
-          <div className="signup-card">
-            <h2>Book Your Spot</h2>
+          <div className="signup-card bg-slate-900 p-5 rounded-lg sticky top-20">
+            <h2 className="my-3">Book Your Spot</h2>
+            {bookings > 0 ? (
+              <p className="text-sm">
+                Join {bookings} people who have already booked their spot!
+              </p>
+            ) : (
+              <p className="text-sm">Be the first to book your spot!</p>
+            )}
+            <BookEvent />
           </div>
         </aside>
       </div>
