@@ -150,33 +150,9 @@ const EventDetailPage = async ({
 
         {/* Booking Form - Right Side */}
         <aside className="booking w-1/3">
-          <p className="text-lg font-semibold">Book Event</p>
-          <form className="flex flex-col gap-4 my-5">
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="p-3 border border-gray-300 rounded"
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="p-3 border border-gray-300 rounded"
-              required
-            />
-            <input
-              type="tel"
-              placeholder="Phone Number"
-              className="p-3 border border-gray-300 rounded"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-blue-600 text-white p-3 rounded hover:bg-blue-700 transition"
-            >
-              Submit
-            </button>
-          </form>
+          <div className="signup-card">
+            <h2>Book Your Spot</h2>
+          </div>
         </aside>
       </div>
     </section>
