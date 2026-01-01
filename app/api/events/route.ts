@@ -8,6 +8,9 @@ export async function POST(req: NextRequest) {
     await connectToDatabase();
     const formData = await req.formData();
     let event;
+    let agenda;
+    let tags;
+
     try {
       event = Object.fromEntries(formData.entries());
     } catch (e) {
