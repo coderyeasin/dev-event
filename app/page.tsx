@@ -20,6 +20,7 @@ const Page = async () => {
         </p>
       </div>
       <ExploreBtn />
+      {/* check event card-designs on UI */}
       <div className="mt-20 space-y-7 events-section">
         <h2>Featured Events</h2>
         <ul className="events-cards">

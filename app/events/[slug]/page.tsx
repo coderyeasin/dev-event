@@ -170,7 +170,7 @@ const EventDetailPage = async ({
           </div>
         </aside>
       </div>
-
+      {/* check event card-designs on UI */}
       <div className="flex w-full flex-col gap-4 pt-20">
         <h2 className="text-2xl font-bold">Similar Events You May Like:</h2>
         <div className="events">
