@@ -10,7 +10,7 @@ const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const { success, error } = await createBooking({ eventId, slug, email });
+    const { success } = await createBooking({ eventId, slug, email });
 
     if (success) {
       setSubmitted(true);
@@ -20,8 +20,8 @@ const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
         email: email,
       });
     } else {
-      console.error("Booking failed", error);
-      posthog.captureException(error);
+      console.error("Booking failed");
+      posthog.captureException("Booking failed");
     }
   };
 

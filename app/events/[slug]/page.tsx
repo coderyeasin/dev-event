@@ -78,7 +78,7 @@ const EventDetailPage = async ({
     console.error("Error fetching event data:", error);
     return notFound();
   }
-
+  console.log("Event Data:", event);
   const {
     description,
     image,

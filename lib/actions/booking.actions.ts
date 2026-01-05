@@ -15,18 +15,15 @@ export const createBooking = async ({
   try {
     await connectToDatabase();
 
-    const booking = (
-      await BookingModel.create({ eventId, slug, email })
-    ).lean();
+    await BookingModel.create({ eventId, slug, email });
+
     return {
       success: true,
-      booking,
     };
   } catch (e) {
     console.error("Create booking failed", e);
     return {
       success: false,
-      error: e,
     };
   }
 };
