@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const BookEvent = () => {
+const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 

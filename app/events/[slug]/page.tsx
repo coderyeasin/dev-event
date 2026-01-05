@@ -166,7 +166,7 @@ const EventDetailPage = async ({
             ) : (
               <p className="text-sm">Be the first to book your spot!</p>
             )}
-            <BookEvent />
+            <BookEvent eventId={event.id} slug={slug} />
           </div>
         </aside>
       </div>
