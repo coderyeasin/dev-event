@@ -1,6 +1,7 @@
 "use client";
 import { createBooking } from "@/lib/actions/booking.actions";
 import posthog from "posthog-js";
+
 import React, { useState } from "react";
 
 const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
@@ -21,7 +22,7 @@ const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
       });
     } else {
       console.error("Booking failed");
-      posthog.captureException("Booking failed");
+      posthog.capture("booking_failed", { event_id: eventId, slug, email });
     }
   };
 
@@ -52,7 +53,6 @@ const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
           <button
             type="submit"
             className="button-submit bg-teal-500 p-2 rounded-lg text-black hover:text-white w-full font-semibold cursor-pointer hover:bg-teal-600"
-            onClick={() => setSubmitted(true)}
           >
             Submit
           </button>

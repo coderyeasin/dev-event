@@ -78,7 +78,7 @@ const EventDetailPage = async ({
     console.error("Error fetching event data:", error);
     return notFound();
   }
-  console.log("Event Data:", event);
+
   const {
     description,
     image,
@@ -103,7 +103,12 @@ const EventDetailPage = async ({
     <section id="event">
       <div className="header">
         <h1>Event Description</h1>
-        <p className="m-2">{description}</p>
+        <h2 className="my-5">
+          <strong>Title:</strong> {title}
+        </h2>
+        <p className="my-2 text-sm">
+          <strong>Description:</strong> {description}
+        </p>
       </div>
       <div className="details flex flex-col lg:flex-row gap-10 w-full">
         {/* Event Content - Left SIde*/}
@@ -147,7 +152,7 @@ const EventDetailPage = async ({
             />
           </section>
 
-          <EventAgenda agendaItems={JSON.parse(agenda)} />
+          <EventAgenda agendaItems={agenda} />
 
           <section className="flex flex-col gap-2 my-7">
             <h2>About the Organizer</h2>
@@ -156,7 +161,7 @@ const EventDetailPage = async ({
             </p>
           </section>
 
-          <EventTags tags={JSON.parse(tags)} />
+          <EventTags tags={tags} />
         </div>
 
         {/* Booking Form - Right Side */}
@@ -170,7 +175,7 @@ const EventDetailPage = async ({
             ) : (
               <p className="text-sm">Be the first to book your spot!</p>
             )}
-            <BookEvent eventId={event._id} slug={slug} />
+            <BookEvent eventId={event._id} slug={event.slug} />
           </div>
         </aside>
       </div>
