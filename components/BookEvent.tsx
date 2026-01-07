@@ -10,10 +10,14 @@ const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const { success } = await createBooking({ eventId, slug, email });
 
     if (success) {
+      if (!emailRegex.test(email)) {
+        console.log("Please enter a valid email address.");
+      }
       setSubmitted(true);
       posthog.capture("event_booked", {
         event_id: eventId,
