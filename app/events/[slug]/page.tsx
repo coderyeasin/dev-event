@@ -180,9 +180,9 @@ const EventDetailPage = async ({
         </aside>
       </div>
       {/* check event card-designs on UI */}
-      <div className="flex w-full flex-col gap-4 pt-20">
+      <div className="w-full flex flex-col gap-4 pt-20">
         <h2 className="text-2xl font-bold">Similar Events You May Like:</h2>
-        <div className="events">
+        <div className="grid grid-cols-3 gap-6 w-10/12">
           {similarEvents.length > 0 &&
             similarEvents.map((similarEvents: IEvent) => (
               <EventCard key={similarEvents.title} {...similarEvents} />
