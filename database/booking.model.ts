@@ -48,5 +48,5 @@ BookingSchema.pre<IBooking>("save", async function (next) {
   next();
 });
 
-export const Booking: Model<IBooking> =
+export const BookingModel: Model<IBooking> =
   mongoose.models.Booking || mongoose.model<IBooking>("Booking", BookingSchema);

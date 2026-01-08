@@ -2,6 +2,7 @@ import BookEvent from "@/components/BookEvent";
 import EventCard from "@/components/EventCard";
 import { IEvent } from "@/database/event.model";
 import { getSimilarEventsBySlug } from "@/lib/actions/event.actions";
+import { cacheLife } from "next/cache";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -51,6 +52,9 @@ const EventDetailPage = async ({
 }: {
   params: Promise<{ slug: string }>;
 }) => {
+  "use cache";
+  cacheLife("hours");
+
   const { slug } = await params;
   let event;
   try {
@@ -99,7 +103,12 @@ const EventDetailPage = async ({
     <section id="event">
       <div className="header">
         <h1>Event Description</h1>
-        <p className="m-2">{description}</p>
+        <h2 className="my-5">
+          <strong>Title:</strong> {title}
+        </h2>
+        <p className="my-2 text-sm">
+          <strong>Description:</strong> {description}
+        </p>
       </div>
       <div className="details flex flex-col lg:flex-row gap-10 w-full">
         {/* Event Content - Left SIde*/}
@@ -166,14 +175,14 @@ const EventDetailPage = async ({
             ) : (
               <p className="text-sm">Be the first to book your spot!</p>
             )}
-            <BookEvent />
+            <BookEvent eventId={event._id} slug={event.slug} />
           </div>
         </aside>
       </div>
       {/* check event card-designs on UI */}
-      <div className="flex w-full flex-col gap-4 pt-20">
+      <div className="w-full flex flex-col gap-4 pt-20">
         <h2 className="text-2xl font-bold">Similar Events You May Like:</h2>
-        <div className="events">
+        <div className="grid grid-cols-3 gap-6 w-10/12">
           {similarEvents.length > 0 &&
             similarEvents.map((similarEvents: IEvent) => (
               <EventCard key={similarEvents.title} {...similarEvents} />
