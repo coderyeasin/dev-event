@@ -6,9 +6,15 @@ const Navbar = () => {
   return (
     <header>
       <nav>
-        <Link href="/" className="logo">
-          {/*<Image src={} alt='logo' width={24} height={24} />*/}
-          <p>DevEvent</p>
+        <Link href="/" className="logo flex items-center gap-2">
+          <Image
+            src="/icons/audience.svg"
+            alt="logo"
+            width={24}
+            height={24}
+            className="bg-white rounded-full"
+          />
+          <p>DevEvents</p>
         </Link>
         <ul>
           <Link href="/" className="px-3 py-2">
