@@ -1,7 +1,7 @@
 # 🎟️ Events Booking App [Next.js 16]
 
 A modern **full-stack Events Booking application** built with **Next.js 16**, **TypeScript**, and **Tailwind CSS**.  
-Users can explore upcoming events, view event details, and book events using their email — all powered by a scalable backend with analytics, caching, and server actions.
+Users can explore upcoming events, view event details, and book events using their email - all powered by a scalable backend with analytics, caching, and server actions.
 
 ---
 
@@ -40,4 +40,4 @@ This project demonstrates how to build a **well-structured, production-ready Nex
 
 ---
 
-## 📂 [Book Your Event Now!](https://dev-events-dusky.vercel.app/) .
+## 📂 [Book Your Event Now!](https://dev-events-dusky.vercel.app/)
