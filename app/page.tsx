@@ -11,9 +11,7 @@ const Page = async () => {
 
   const response = await fetch(`${BASE_URL}/api/events`);
   const { events } = await response.json();
-  // const res = await fetch(`${BASE_URL}/api/booking`);
-  // const { booking } = await res.json();
-  // console.log("booking", booking);
+
   return (
     <section>
       <div>

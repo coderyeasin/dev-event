@@ -21,8 +21,11 @@ const Navbar = () => {
             Home
           </Link>
           <Link href="#" className="px-3 py-2">
-            Events
+            Booking List
           </Link>
+          {/* <Link href="#" className="px-3 py-2">
+            Events
+          </Link> */}
           <Link href="#" className="px-3 py-2">
             Create Event
           </Link>
