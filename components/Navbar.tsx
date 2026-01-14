@@ -20,7 +20,7 @@ const Navbar = () => {
           <Link href="/" className="px-3 py-2">
             Home
           </Link>
-          <Link href="#" className="px-3 py-2">
+          <Link href="/booking" className="px-3 py-2">
             Booking List
           </Link>
           {/* <Link href="#" className="px-3 py-2">
