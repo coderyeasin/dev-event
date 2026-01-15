@@ -26,11 +26,11 @@ export async function GET() {
       booking: bookingEvent,
     });
   } catch (e) {
-    if (process.env.NODE_ENV === "development") {
-      console.error("Error fetching bookings:", e);
-    }
+    // Always log the full error internally
+    console.error("Error fetching bookings:", e);
+    // Return a sanitized error response
     return NextResponse.json(
-      { message: "An error occurred while fetching bookings" },
+      { message: "Something went wrong", status: 500 },
       { status: 500 }
     );
   }

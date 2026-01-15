@@ -1,11 +1,12 @@
 import React from "react";
 
 interface BookingType {
+  _id: string;
   email: string;
   eventId: string;
 }
 
-const BookingHome = ({ booking }: { booking: [] }) => {
+const BookingHome = ({ booking }: { booking: BookingType[] }) => {
   return (
     <section>
       <h3 className="text-2xl text-center font-bold py-5">
@@ -15,7 +16,7 @@ const BookingHome = ({ booking }: { booking: [] }) => {
         {booking.map((item: BookingType) => {
           return (
             <div
-              key={item.email}
+              key={item._id}
               className="bg-teal-900/25 w-80 h-32 rounded-2xl p-3 flex justify-center items-center"
             >
               <p>

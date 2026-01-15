@@ -79,9 +79,19 @@ const CreateEvent = () => {
         method: "POST",
         body: formData,
       });
-      const result = await res.json();
-      if (!res.ok || result.status !== 201) {
-        setServerError(result.message || "Failed to create event");
+      let result: any = {};
+      let parseError = null;
+      try {
+        result = await res.json();
+      } catch (jsonErr) {
+        const text = await res.text();
+        parseError = text;
+      }
+      if (!res.ok || (result && result.status !== 201)) {
+        setServerError(
+          (result && result.message) ||
+            (parseError ? `Error: ${parseError}` : "Failed to create event")
+        );
       } else {
         setSuccess(true);
         reset();
@@ -105,7 +115,7 @@ const CreateEvent = () => {
         className="space-y-4 "
       >
         <div className="w-full flex justify-around gap-5">
-          <div className="6/12 space-y-3">
+          <div className="w-6/12 space-y-3">
             <div>
               <label className={labelCls}>Title *</label>
               <input
