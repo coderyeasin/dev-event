@@ -1,8 +1,14 @@
 import CreateEvent from "@/components/CreateEvent/CreateEvent";
-import React from "react";
+import React, { Suspense } from "react";
 
 const page = () => {
-  return <CreateEvent />;
+  return (
+    <main className="py-12">
+      <Suspense fallback={<p>loading...</p>}>
+        <CreateEvent />
+      </Suspense>
+    </main>
+  );
 };
 
 export default page;
