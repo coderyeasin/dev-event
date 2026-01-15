@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 
@@ -22,6 +23,7 @@ interface FormValues {
 const CreateEvent = () => {
   const [serverError, setServerError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -83,6 +85,7 @@ const CreateEvent = () => {
       } else {
         setSuccess(true);
         reset();
+        router.push("/");
       }
     } catch (e: any) {
       setServerError(e.message || "Unknown error");
