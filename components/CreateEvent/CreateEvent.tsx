@@ -367,11 +367,13 @@ const CreateEvent = () => {
           </div>
         </div>
         {serverError && (
-          <div className="text-red-600 font-semibold">{serverError}</div>
+          <div className="text-red-600 font-semibold text-center">
+            {serverError}
+          </div>
         )}
         {success && (
-          <div className="text-green-600 font-semibold">
-            Event created successfully!
+          <div className="text-green-600 font-semibold text-center">
+            Event Created Successfully!
           </div>
         )}
         <button
