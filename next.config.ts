@@ -1,5 +1,12 @@
 import type { NextConfig } from "next";
 
+export const cacheLife = (profile: string) => {
+  const profiles: Record<string, { stale: number; revalidate: number; expire: number }> = {
+    hours: { stale: 60 * 60, revalidate: 60 * 60, expire: 3 * 60 * 60 },
+  };
+  return profiles[profile];
+};
+
 const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,

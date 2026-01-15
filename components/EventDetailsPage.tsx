@@ -178,7 +178,9 @@ const EventDetailsPage = async ({ params }: { params: Promise<string> }) => {
       </div>
       {/* check event card-designs on UI */}
       <div className="w-full flex flex-col gap-4 pt-20">
-        <h2 className="text-2xl font-bold">Similar Events You May Like:</h2>
+        <h2 className="text-2xl font-bold">
+          Similar Events You May Like: {similarEvents.length}
+        </h2>
         <div className="grid grid-cols-3 gap-6 w-10/12">
           {similarEvents.length > 0 &&
             similarEvents.map((similarEvents: IEvent) => (
