@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useState } from "react";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
@@ -72,19 +73,17 @@ const CreateEvent = () => {
         formData.append("image", data.image[0]);
       }
 
-      console.log("formData", data);
-
-      //   const res = await fetch("/api/events", {
-      //     method: "POST",
-      //     body: formData,
-      //   });
-      //   const result = await res.json();
-      //   if (!res.ok || result.status !== 201) {
-      //     setServerError(result.message || "Failed to create event");
-      //   } else {
-      //     setSuccess(true);
-      //     reset();
-      //   }
+      const res = await fetch("/api/events", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await res.json();
+      if (!res.ok || result.status !== 201) {
+        setServerError(result.message || "Failed to create event");
+      } else {
+        setSuccess(true);
+        reset();
+      }
     } catch (e: any) {
       setServerError(e.message || "Unknown error");
     }
@@ -94,7 +93,7 @@ const CreateEvent = () => {
   const labelCls = "block font-medium mb-3";
   return (
     <div className="min-w-3xl mx-auto px-6 py-6 bg-teal-900/30 rounded shadow">
-      <h2 className="text-2xl font-bold mb-5 text-center">
+      <h2 className="text-2xl font-bold py-7 text-center">
         Create Upcoming Event
       </h2>
       <form
@@ -123,7 +122,7 @@ const CreateEvent = () => {
                 {...register("description", {
                   required: "Description is required",
                 })}
-                className={`${inputCommonCls} rounded`}
+                className={`${inputCommonCls} rounded px-4 py-2`}
               />
               {errors.description && (
                 <span className="text-red-500 text-sm">
@@ -135,7 +134,7 @@ const CreateEvent = () => {
               <label className={labelCls}>Overview *</label>
               <textarea
                 {...register("overview", { required: "Overview is required" })}
-                className={`${inputCommonCls} rounded`}
+                className={`${inputCommonCls} rounded px-4 py-2`}
               />
               {errors.overview && (
                 <span className="text-red-500 text-sm">
@@ -210,7 +209,13 @@ const CreateEvent = () => {
                   type="file"
                   accept="image/*"
                   {...register("image", { required: "Image is required" })}
-                  className={inputCommonCls}
+                  className={`${inputCommonCls} block w-full text-sm text-gray-500
+                  file:mr-4 file:py-2 file:px-4
+                  file:rounded-full file:border-0
+                  file:text-sm file:font-semibold
+                  file:bg-blue-50 file:text-blue-700
+                  hover:file:bg-blue-100
+                  file:cursor-pointer cursor-pointer`}
                 />
                 {errors.image && (
                   <span className="text-red-500 text-sm">
@@ -223,7 +228,7 @@ const CreateEvent = () => {
 
           <div className="w-6/12 space-y-3">
             <div className="flex justify-between items-center gap-3">
-              <div>
+              <div className="relative w-44">
                 <label className={labelCls}>Date (YYYY-MM-DD) *</label>
                 <input
                   type="date"
@@ -234,15 +239,18 @@ const CreateEvent = () => {
                       message: "Date must be in YYYY-MM-DD format",
                     },
                   })}
-                  className={inputCommonCls}
+                  className={`${inputCommonCls} py-2 appearance-none `}
                 />
+                <span className="absolute right-5 top-15 -translate-y-1/2 pointer-events-none">
+                  📅
+                </span>
                 {errors.date && (
                   <span className="text-red-500 text-sm">
                     {errors.date.message}
                   </span>
                 )}
               </div>
-              <div>
+              <div className="relative w-40">
                 <label className={labelCls}>Time (HH:mm) *</label>
                 <input
                   type="time"
@@ -255,6 +263,9 @@ const CreateEvent = () => {
                   })}
                   className={inputCommonCls}
                 />
+                <span className="absolute right-5 top-15 -translate-y-1/2 pointer-events-none">
+                  ⏰
+                </span>
                 {errors.time && (
                   <span className="text-red-500 text-sm">
                     {errors.time.message}
@@ -265,7 +276,7 @@ const CreateEvent = () => {
                 <label className={labelCls}>Mode *</label>
                 <select
                   {...register("mode", { required: "Mode is required" })}
-                  className={`${inputCommonCls} py-2 px-5 rounded`}
+                  className={`${inputCommonCls} py-2 px-5 rounded appearance-none`}
                 >
                   <option value="in-person" className="bg-teal-900">
                     In-Person
