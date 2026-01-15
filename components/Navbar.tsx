@@ -20,14 +20,15 @@ const Navbar = () => {
           <Link href="/" className="px-3 py-2">
             Home
           </Link>
-          <Link href="/booking" className="px-3 py-2">
-            Booking List
-          </Link>
+
           {/* <Link href="#" className="px-3 py-2">
             Events
           </Link> */}
-          <Link href="#" className="px-3 py-2">
+          <Link href="/create-event" className="px-3 py-2">
             Create Event
+          </Link>
+          <Link href="/booking" className="px-3 py-2">
+            Booking Lists
           </Link>
         </ul>
       </nav>
