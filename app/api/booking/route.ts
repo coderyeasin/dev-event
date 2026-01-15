@@ -26,10 +26,12 @@ export async function GET() {
       booking: bookingEvent,
     });
   } catch (e) {
-    return NextResponse.json({
-      message: "Something Went Error",
-      error: e,
-      status: 500,
-    });
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error fetching bookings:", e);
+    }
+    return NextResponse.json(
+      { message: "An error occurred while fetching bookings" },
+      { status: 500 }
+    );
   }
 }
