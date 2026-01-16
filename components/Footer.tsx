@@ -17,9 +17,7 @@ const ListStyleBox: React.FC<ListTypes> = ({
         {items.map((item, i) => (
           <li
             key={i}
-            className={
-              item === activeItems ? "text-primary" : "text-TextPrimary"
-            }
+            className={item === activeItems ? "text-teal-700" : "text-slate-50"}
           >
             {item}
           </li>
@@ -30,29 +28,36 @@ const ListStyleBox: React.FC<ListTypes> = ({
 };
 
 const Footer = () => {
-  const navItems: string[] = ["About.", "Service.", "Tools.", "Contacts."];
+  const navItems: string[] = ["Events", "Create Event", "Booking"];
   const langItems: string[] = ["En", "Es", "Fr", "De", "Ru"];
   return (
-    <footer className="bg-darkSecondary h-186">
-      <section className="flex justify-evenly items-center gap-10 py-30">
+    <footer className="bg-teal-900/20 h-186">
+      <section className="flex justify-around items-center py-20">
+        <div>
+          <h3 className="text-5xl font-bold text-TextPrimary">DevEvent</h3>
+        </div>
         <div>
           <input
             type="email"
             name="email"
             id="email"
-            className="border-0 outline-none ring-0 focus:outline-none focus:ring-0 focus:border-0 bg-[#061F0D] rounded-[30px] px-3.75 py-5"
+            className="border-0 outline-none ring-0 focus:outline-none focus:ring-0 focus:border-0 bg-teal-700 rounded-[30px] px-3.75 py-5"
             placeholder="Enter your email address"
           />
           <button className="font-poppins font-bold text-TextPrimary bg-radial-[at_25%_25%] from-primary to-secondary to-75% text-xl py-4 px-5 rounded-[51px] cursor-pointer">
             Contact us
           </button>
         </div>
-        <ListStyleBox items={navItems} activeItems="About." />
-      </section>
-      <section className="flex justify-around items-end py-20">
+
         <div>
-          <h3 className="text-5xl font-bold text-TextPrimary">Virtuo.</h3>
+          <ListStyleBox
+            items={langItems}
+            activeItems="En"
+            className="bg-transparent text-3xl"
+          />
         </div>
+      </section>
+      <section className="flex justify-evenly items-center gap-10 py-30">
         <div className="space-y-10">
           <div>
             <h3 className="font-poppins font-medium text-xl text-TextPrimary pb-3">
@@ -77,10 +82,11 @@ const Footer = () => {
             </p>
           </div>
         </div>
-        <div>
-          <h3 className="font-poppins text-xl pb-5 text-right">Languages</h3>
-          <ListStyleBox items={langItems} activeItems="En" />
-        </div>
+        <ListStyleBox
+          items={navItems}
+          activeItems="Events"
+          className="bg-transparent"
+        />
       </section>
     </footer>
   );
