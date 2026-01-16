@@ -31,8 +31,8 @@ const Footer = () => {
   const navItems: string[] = ["Events", "Create Event", "Booking"];
   const langItems: string[] = ["En", "Es", "Fr", "De", "Ru"];
   return (
-    <footer className="bg-teal-900/20 h-186">
-      <section className="flex justify-around items-center py-20">
+    <footer className="bg-teal-900/20 h-120">
+      <section className="flex justify-around items-center py-16">
         <div>
           <h3 className="text-5xl font-bold text-TextPrimary">DevEvent</h3>
         </div>
@@ -44,9 +44,6 @@ const Footer = () => {
             className="border-0 outline-none ring-0 focus:outline-none focus:ring-0 focus:border-0 bg-teal-700 rounded-[30px] px-3.75 py-5"
             placeholder="Enter your email address"
           />
-          <button className="font-poppins font-bold text-TextPrimary bg-radial-[at_25%_25%] from-primary to-secondary to-75% text-xl py-4 px-5 rounded-[51px] cursor-pointer">
-            Contact us
-          </button>
         </div>
 
         <div>
@@ -57,7 +54,7 @@ const Footer = () => {
           />
         </div>
       </section>
-      <section className="flex justify-evenly items-center gap-10 py-30">
+      <section className="flex justify-evenly items-center py-8">
         <div className="space-y-10">
           <div>
             <h3 className="font-poppins font-medium text-xl text-TextPrimary pb-3">

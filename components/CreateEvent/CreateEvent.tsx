@@ -114,7 +114,7 @@ const CreateEvent = () => {
         encType="multipart/form-data"
         className="space-y-4 "
       >
-        <div className="w-full flex justify-around gap-5">
+        <div className="w-full min-h-screen py-10 flex justify-around gap-5">
           <div className="w-6/12 space-y-3">
             <div>
               <label className={labelCls}>Title *</label>

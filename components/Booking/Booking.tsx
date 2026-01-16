@@ -8,7 +8,7 @@ interface BookingType {
 
 const BookingHome = ({ booking }: { booking: BookingType[] }) => {
   return (
-    <section>
+    <section className="w-full min-h-screen py-10 ">
       <h3 className="text-2xl text-center font-bold py-5">
         Event Booked : {booking.length}
       </h3>
