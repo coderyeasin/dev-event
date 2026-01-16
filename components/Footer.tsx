@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export interface ListTypes {
   items: string[];
   activeItems: string;
@@ -32,9 +34,16 @@ const Footer = () => {
   const langItems: string[] = ["En", "Es", "Fr", "De", "Ru"];
   return (
     <footer className="bg-teal-900/20 h-120">
-      <section className="flex justify-around items-center py-16">
-        <div>
-          <h3 className="text-5xl font-bold text-TextPrimary">DevEvent</h3>
+      <section className="flex justify-around items-center py-14">
+        <div className="flex gap-3">
+          <Image
+            src="/icons/audience.svg"
+            alt="logo"
+            width={40}
+            height={40}
+            className="bg-white rounded-full"
+          />
+          <h3 className="text-5xl font-bold text-TextPrimary">DevEvents</h3>
         </div>
         <div>
           <input
@@ -54,7 +63,7 @@ const Footer = () => {
           />
         </div>
       </section>
-      <section className="flex justify-evenly items-center py-8">
+      <section className="flex justify-evenly items-center py-10">
         <div className="space-y-10">
           <div>
             <h3 className="font-poppins font-medium text-xl text-TextPrimary pb-3">
