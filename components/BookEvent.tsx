@@ -50,14 +50,14 @@ const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
   };
 
   return (
-    <div id="book-event">
+    <div id="book-event" className="w-full">
       {submitted ? (
         <p className="text-green-500 text-sm my-5">
           Thank you for booking! We have received your request.
         </p>
       ) : (
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="my-5">
+        <form onSubmit={handleSubmit} noValidate className="w-full">
+          <div className="my-5 w-full">
             <label
               htmlFor="email"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
@@ -85,7 +85,7 @@ const BookEvent = ({ eventId, slug }: { eventId: string; slug: string }) => {
           </div>
           <button
             type="submit"
-            className="button-submit bg-teal-500 p-2 rounded-lg text-black hover:text-white w-full font-semibold cursor-pointer hover:bg-teal-600 disabled:opacity-60"
+            className="button-submit bg-teal-500 p-2 rounded-lg text-black hover:text-white w-full font-semibold cursor-pointer hover:bg-teal-600 disabled:opacity-60 mt-2"
             disabled={loading}
           >
             {loading ? "Submitting..." : "Submit"}

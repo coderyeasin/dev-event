@@ -107,15 +107,15 @@ const EventDetailsPage = async ({ params }: { params: Promise<string> }) => {
           <strong>Description:</strong> {description}
         </p>
       </div>
-      <div className="details flex flex-col lg:flex-row gap-10 w-full">
+      <div className="details flex flex-col lg:flex-row gap-10 w-full max-w-full px-2 md:px-0">
         {/* Event Content - Left SIde*/}
-        <div className="content flex-1">
+        <div className="content flex-1 min-w-0">
           <Image
             src={image}
             alt={title}
             width={800}
             height={800}
-            className="banner"
+            className="banner w-full max-h-80 object-cover rounded-lg"
           />
           <section className="flex flex-col gap-2 my-5">
             <p className="text-xl font-bold">Overview:</p>
@@ -162,8 +162,8 @@ const EventDetailsPage = async ({ params }: { params: Promise<string> }) => {
         </div>
 
         {/* Booking Form - Right Side */}
-        <aside className="booking w-1/3">
-          <div className="signup-card bg-slate-900 p-5 rounded-lg sticky top-20">
+        <aside className="booking w-full lg:w-1/3 mt-8 lg:mt-0">
+          <div className="signup-card bg-slate-900 p-5 rounded-lg lg:sticky lg:top-20">
             <h2 className="my-3">Book Your Spot</h2>
             {bookings > 0 ? (
               <p className="text-sm">
@@ -181,7 +181,7 @@ const EventDetailsPage = async ({ params }: { params: Promise<string> }) => {
         <h2 className="text-2xl font-bold">
           Similar Events You May Like: {similarEvents.length}
         </h2>
-        <div className="grid grid-cols-3 gap-6 w-10/12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {similarEvents.length > 0 &&
             similarEvents.map((similarEvents: IEvent) => (
               <EventCard key={similarEvents.title} {...similarEvents} />

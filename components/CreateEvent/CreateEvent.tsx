@@ -64,11 +64,11 @@ const CreateEvent = () => {
       // Arrays as JSON
       formData.append(
         "agenda",
-        JSON.stringify(data.agenda.map((a) => a.value).filter(Boolean))
+        JSON.stringify(data.agenda.map((a) => a.value).filter(Boolean)),
       );
       formData.append(
         "tags",
-        JSON.stringify(data.tags.map((t) => t.value).filter(Boolean))
+        JSON.stringify(data.tags.map((t) => t.value).filter(Boolean)),
       );
       // File
       if (data.image && data.image.length > 0) {
@@ -90,7 +90,7 @@ const CreateEvent = () => {
       if (!res.ok || (result && result.status !== 201)) {
         setServerError(
           (result && result.message) ||
-            (parseError ? `Error: ${parseError}` : "Failed to create event")
+            (parseError ? `Error: ${parseError}` : "Failed to create event"),
         );
       } else {
         setSuccess(true);
@@ -105,7 +105,7 @@ const CreateEvent = () => {
     "w-full border-2 border-teal-900 bg-transparent outline-0 shadow-none ring-0 focus:ring-0 focus:outline-none";
   const labelCls = "block font-medium mb-3";
   return (
-    <div className="min-w-3xl mx-auto px-6 py-6 bg-teal-900/30 rounded shadow">
+    <div className="w-full max-w-5xl mx-auto px-2 sm:px-6 py-6 bg-teal-900/30 rounded shadow">
       <h2 className="text-2xl font-bold py-7 text-center">
         Create Upcoming Event
       </h2>
@@ -114,8 +114,8 @@ const CreateEvent = () => {
         encType="multipart/form-data"
         className="space-y-4 "
       >
-        <div className="w-full min-h-screen py-10 flex justify-around gap-5">
-          <div className="w-6/12 space-y-3">
+        <div className="w-full min-h-screen py-10 flex flex-col md:flex-row justify-around gap-5">
+          <div className="w-full md:w-6/12 space-y-3">
             <div>
               <label className={labelCls}>Title *</label>
               <input
@@ -168,7 +168,7 @@ const CreateEvent = () => {
                 </span>
               )}
             </div>
-            <div className="flex justify-between items-center gap-3">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
               <div>
                 <label className={labelCls}>Audience *</label>
                 <input
@@ -200,7 +200,7 @@ const CreateEvent = () => {
                 )}
               </div>
             </div>
-            <div className="flex justify-between items-center gap-3">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
               <div>
                 <label className={labelCls}>Location *</label>
                 <input
@@ -239,8 +239,8 @@ const CreateEvent = () => {
             </div>
           </div>
 
-          <div className="w-6/12 space-y-3">
-            <div className="flex justify-between items-center gap-3">
+          <div className="w-full md:w-6/12 space-y-3">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
               <div className="relative w-44">
                 <label className={labelCls}>Date (YYYY-MM-DD) *</label>
                 <input
