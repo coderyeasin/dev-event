@@ -32,7 +32,7 @@ const Page = async () => {
             events.map((event: IEvent) => (
               <li
                 key={event.title}
-                className="w-full sm:w-auto flex justify-center sm:mx-auto"
+                className="w-full sm:w-auto flex justify-center sm:mx-auto lg:mx-0"
               >
                 <EventCard {...event} />
               </li>

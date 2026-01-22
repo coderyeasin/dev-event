@@ -32,7 +32,7 @@ const ListStyleBox: React.FC<ListTypes> = ({
 const Footer = () => {
   const navItems: string[] = ["Events", "Create Event", "Booking"];
   const langItems: string[] = ["En", "Es", "Fr", "De", "Ru"];
-  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="bg-teal-900/20 w-full pt-8 pb-2 mt-10">
       {/* Top Section */}
@@ -101,7 +101,7 @@ const Footer = () => {
         </div>
       </section>
       <div className="py-2 text-center text-xs text-TextPrimary mt-4">
-        &copy; {currentYear} DevEvents. All rights reserved.
+        &copy; 2026 DevEvents. All rights reserved.
       </div>
     </footer>
   );

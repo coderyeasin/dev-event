@@ -97,7 +97,7 @@ const EventDetailsPage = async ({ params }: { params: Promise<string> }) => {
   const similarEvents: IEvent[] = await getSimilarEventsBySlug(slug);
 
   return (
-    <section id="event" className="py-20">
+    <section id="event" className="py-20 sm: px-4">
       <div className="header">
         <h1>Event Description</h1>
         <h2 className="my-5">

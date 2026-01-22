@@ -112,10 +112,10 @@ const CreateEvent = () => {
       <form
         onSubmit={handleSubmit(onSubmit)}
         encType="multipart/form-data"
-        className="space-y-4 "
+        className="space-y-4"
       >
-        <div className="w-full min-h-screen py-10 flex flex-col md:flex-row justify-around gap-5">
-          <div className="w-full md:w-6/12 space-y-3">
+        <div className="w-full min-h-screen py-10 flex flex-col lg:flex-row justify-around gap-5">
+          <div className="w-full lg:w-6/12 space-y-3">
             <div>
               <label className={labelCls}>Title *</label>
               <input
@@ -239,7 +239,7 @@ const CreateEvent = () => {
             </div>
           </div>
 
-          <div className="w-full md:w-6/12 space-y-3">
+          <div className="w-full lg:w-6/12 space-y-3">
             <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
               <div className="relative w-44">
                 <label className={labelCls}>Date (YYYY-MM-DD) *</label>
