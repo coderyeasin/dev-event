@@ -2,17 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { FaRegCalendarAlt, FaRegClock } from "react-icons/fa";
+import { EventProps } from "@/types/type";
 
-interface Props {
-  title: string;
-  image: string;
-  slug: string;
-  location: string;
-  date: string;
-  time: string;
-}
-
-const EventCard = ({ title, image, slug, location, date, time }: Props) => {
+const EventCard = ({
+  title,
+  image,
+  slug,
+  location,
+  date,
+  time,
+}: EventProps) => {
   return (
     <Link
       href={`/events/${slug}`}
