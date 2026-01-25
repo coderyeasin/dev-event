@@ -44,7 +44,7 @@ export default function RootLayout({
             distortion={0.01}
           />
         </div>
-        <main>{children}</main>
+        <main className="w-full min-h-screen">{children}</main>
         <Footer />
       </body>
     </html>

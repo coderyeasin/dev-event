@@ -8,7 +8,7 @@ const navLinks = [
   // { href: "#", label: "Events" },
   { href: "/create-event", label: "Create Event" },
   { href: "/booking", label: "Booking Lists" },
-  { href: "#", label: "Login" },
+  { href: "/login", label: "Login" },
 ];
 
 const Navbar = () => {
