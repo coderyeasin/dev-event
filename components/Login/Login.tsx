@@ -52,7 +52,7 @@ const LoginPage = () => {
 
         <button
           disabled={isSubmitting}
-          className="btn-primary mt-5 w-full cursor-pointer bg-teal-950 py-2 rounded-md"
+          className="mt-5 w-full cursor-pointer bg-teal-950 py-2 rounded-md"
         >
           {isSubmitting ? "Logging in..." : "Login"}
         </button>
@@ -62,14 +62,14 @@ const LoginPage = () => {
         <div className="flex flex-col lg:flex-row items-center gap-5">
           <button
             type="button"
-            className="btn-primary mt-4 w-full cursor-pointer bg-red-600 py-2 rounded-md flex items-center justify-center gap-2"
+            className="mt-4 w-full cursor-pointer bg-red-600 py-2 rounded-md flex items-center justify-center gap-2"
           >
             <FaGoogle />
             Google
           </button>
           <button
             type="button"
-            className="btn-primary mt-4 w-full cursor-pointer bg-red-600 py-2 rounded-md flex items-center justify-center gap-2"
+            className=" mt-4 w-full cursor-pointer bg-red-600 py-2 rounded-md flex items-center justify-center gap-2"
           >
             <FaFacebook />
             Facebook

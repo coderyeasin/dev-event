@@ -3,7 +3,8 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { FaGoogle } from "react-icons/fa6";
+import { FaFacebook, FaGoogle } from "react-icons/fa6";
+import Link from "next/link";
 
 const registerSchema = z
   .object({
@@ -39,26 +40,26 @@ const RegisterPage = () => {
     console.log("Register Data:", data);
     // 👉 send formData to API
   };
-
+  const commonCls = "mt-3 w-full border-0 outline-0 bg-teal-500/30";
   return (
-    <div className="min-h-screen flex items-center justify-center bg-teal-900/30">
+    <div className="min-h-screen flex items-start justify-center pt-20">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-md bg-teal-900 p-6 rounded-xl shadow"
       >
         <h3 className="text-2xl font-semibold text-center mb-6">
-          Create Account
+          Create an Account
         </h3>
 
         {/* Name */}
-        <input {...register("name")} placeholder="Name" className="input" />
+        <input {...register("name")} placeholder="Name" className={commonCls} />
         {errors.name && <p className="error">{errors.name.message}</p>}
 
         {/* Email */}
         <input
           {...register("email")}
           placeholder="Email"
-          className="input mt-3"
+          className={commonCls}
         />
         {errors.email && <p className="error">{errors.email.message}</p>}
 
@@ -67,7 +68,7 @@ const RegisterPage = () => {
           type="file"
           accept="image/*"
           {...register("image")}
-          className="mt-3"
+          className={commonCls}
         />
         {errors.image && (
           <p className="error">{errors.image.message as string}</p>
@@ -78,7 +79,7 @@ const RegisterPage = () => {
           type="password"
           {...register("password")}
           placeholder="Password"
-          className="input mt-3"
+          className={commonCls}
         />
         {errors.password && <p className="error">{errors.password.message}</p>}
 
@@ -87,17 +88,41 @@ const RegisterPage = () => {
           type="password"
           {...register("confirmPassword")}
           placeholder="Confirm Password"
-          className="input mt-3"
+          className={commonCls}
         />
         {errors.confirmPassword && (
           <p className="error">{errors.confirmPassword.message}</p>
         )}
 
-        <button disabled={isSubmitting} className="btn-primary mt-5 w-full">
+        <button
+          disabled={isSubmitting}
+          className="mt-5 w-full bg-teal-950 py-2 rounded-md cursor-pointer"
+        >
           {isSubmitting ? "Registering..." : "Register"}
         </button>
 
-        <FaGoogle />
+        <p className="mt-4 text-center text-2xl font-bold">OR</p>
+
+        <div className="flex flex-col lg:flex-row items-center gap-5">
+          <button
+            type="button"
+            className="mt-4 w-full cursor-pointer bg-red-600 py-2 rounded-md flex items-center justify-center gap-2"
+          >
+            <FaGoogle />
+            Google
+          </button>
+          <button
+            type="button"
+            className="mt-4 w-full cursor-pointer bg-red-600 py-2 rounded-md flex items-center justify-center gap-2"
+          >
+            <FaFacebook />
+            Facebook
+          </button>
+        </div>
+        <Link href="/login" className="mt-4 text-center text-sm block">
+          Already have an account?{" "}
+          <span className="text-teal-300 font-semibold">Login</span>
+        </Link>
       </form>
     </div>
   );
