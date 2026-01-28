@@ -1,4 +1,4 @@
-import { BookingModel } from "@/database/booking.model";
+import { BookingModel } from "@/models/booking.model";
 import connectToDatabase from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -31,7 +31,7 @@ export async function GET() {
     // Return a sanitized error response
     return NextResponse.json(
       { message: "Something went wrong", status: 500 },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

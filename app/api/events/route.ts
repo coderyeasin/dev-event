@@ -1,4 +1,4 @@
-import { Event } from "@/database/event.model";
+import { Event } from "@/models/event.model";
 import connectToDatabase from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
             if (error) return reject(error);
 
             resolve(result);
-          }
+          },
         )
         .end(buffer);
     });

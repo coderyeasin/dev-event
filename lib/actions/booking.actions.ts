@@ -1,6 +1,6 @@
 "use server";
 
-import { BookingModel } from "@/database/booking.model";
+import { BookingModel } from "@/models/booking.model";
 import connectToDatabase from "@/lib/mongodb";
 
 export const createBooking = async ({
