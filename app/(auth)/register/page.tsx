@@ -1,8 +1,11 @@
 import RegisterPage from "@/components/Register/Register";
-import React from "react";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
-const Register = () => {
+export default async function Register() {
+  const session = await getServerSession();
+  if (session) {
+    redirect("/");
+  }
   return <RegisterPage />;
-};
-
-export default Register;
+}
