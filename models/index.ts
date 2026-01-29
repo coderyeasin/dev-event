@@ -1,2 +1,2 @@
-export { Event } from './event.model';
-export { Booking } from './booking.model';
+export { EventModel } from "./Event.model";
+export { BookingModel } from "./Booking.model";

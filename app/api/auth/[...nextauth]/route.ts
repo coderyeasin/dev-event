@@ -1,29 +1,60 @@
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import { LoginSchema } from "@/lib/validators/login.schema";
 import connectToDatabase from "@/lib/mongodb";
+import { User } from "@/models/User.model";
+import { Session } from "next-auth";
 
-export async function POST(req: Request) {
-  try {
-    // DB Connection
-    await connectToDatabase();
-    const body = await req.json();
-    const { name, email, password, confirmPassword, image } = body;
+const authOptions = {
+  session: {
+    strategy: "jwt",
+  },
+  providers: [
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials: Record<string, string> | undefined) {
+        const data = LoginSchema.parse(credentials);
+        await connectToDatabase();
+        const user = await User.findOne({ email: data.email });
+        if (!user) throw new Error("Invalid credentials");
+        const isMatch = await bcrypt.compare(data.password, user.password);
+        if (!isMatch) throw new Error("Invalid credentials");
+        return {
+          id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+          profileImg: user.profileImg,
+        };
+      },
+    }),
+  ],
+  callbacks: {
+    // @ts-expect-error NextAuth callback params are not explicitly typed
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.profileImg = user.profileImg;
+      }
+      return token;
+    },
+    async session({ session, token }: { session: Session; token: any }) {
+      if (token) {
+        session.user.id = token.id as string;
+        session.user.profileImg = token.profileImg as string;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/login",
+  },
+};
 
-    // Here, you would typically add logic to save the user to your database.
-    // For demonstration purposes, we'll just return the received data.
-
-    return new Response(
-      JSON.stringify({
-        message: "User registered successfully",
-        user: { name, email },
-      }),
-      { status: 201 },
-    );
-  } catch (error) {
-    console.error("Error registering user:", error);
-    return new Response(
-      JSON.stringify({
-        message: "Internal Server Error",
-      }),
-      { status: 500 },
-    );
-  }
-}
+const handler = NextAuth(authOptions);
+export const GET = handler;
+export const POST = handler;

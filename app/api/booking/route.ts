@@ -1,4 +1,4 @@
-import { BookingModel } from "@/models/booking.model";
+import { BookingModel } from "@/models/Booking.model";
 import connectToDatabase from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 

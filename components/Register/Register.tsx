@@ -5,12 +5,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { FaFacebook, FaGoogle } from "react-icons/fa6";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const registerSchema = z
   .object({
     name: z.string().min(2, "Name is required"),
     email: z.string().email("Invalid email"),
-    image: z.any().refine((file) => file?.length === 1, "Image is required"),
+    profileImg: z
+      .any()
+      .refine((file) => file?.length === 1, "profileImg is required"),
     password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string().min(6),
   })
@@ -29,16 +34,40 @@ const RegisterPage = () => {
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
   });
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+  const router = useRouter();
 
   const onSubmit = async (data: RegisterFormData) => {
+    setServerError(null);
+    setSuccess(false);
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("email", data.email);
     formData.append("password", data.password);
-    formData.append("image", data.image[0]);
-
-    console.log("Register Data:", data);
-    // 👉 send formData to API
+    formData.append("confirmPassword", data.confirmPassword);
+    formData.append("profileImg", data.profileImg[0]);
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await res.json();
+      if (!res.ok) {
+        setServerError(result.error || "Registration failed");
+        return;
+      }
+      setSuccess(true);
+      // Optionally auto-login after registration
+      await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+      router.push("/"); // or wherever you want to redirect
+    } catch (err: any) {
+      setServerError(err.message || "Something went wrong");
+    }
   };
   const commonCls = "mt-3 w-full border-0 outline-0 bg-teal-500/30";
   return (
@@ -50,6 +79,14 @@ const RegisterPage = () => {
         <h3 className="text-2xl font-semibold text-center mb-6">
           Create an Account
         </h3>
+        {serverError && (
+          <p className="error text-red-400 text-center">{serverError}</p>
+        )}
+        {success && (
+          <p className="text-green-400 text-center">
+            Registration successful! Redirecting...
+          </p>
+        )}
 
         {/* Name */}
         <input {...register("name")} placeholder="Name" className={commonCls} />
@@ -63,15 +100,15 @@ const RegisterPage = () => {
         />
         {errors.email && <p className="error">{errors.email.message}</p>}
 
-        {/* Image */}
+        {/* profileImg */}
         <input
           type="file"
           accept="image/*"
-          {...register("image")}
+          {...register("profileImg")}
           className={commonCls}
         />
-        {errors.image && (
-          <p className="error">{errors.image.message as string}</p>
+        {errors.profileImg && (
+          <p className="error">{errors.profileImg.message as string}</p>
         )}
 
         {/* Password */}

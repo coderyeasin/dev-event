@@ -1,18 +1,34 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  // { href: "#", label: "Events" },
   { href: "/create-event", label: "Create Event" },
   { href: "/booking", label: "Booking Lists" },
-  { href: "/login", label: "Login" },
 ];
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const { data: session } = useSession();
+
+  // Log user info in console for debugging
+  // if (session?.user) {
+  //   // eslint-disable-next-line no-console
+  //   console.log("Logged in user:", session.user);
+  // }
+
+  // Dropdown close on blur
+  const handleDropdownBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+      setDropdownOpen(false);
+    }
+  };
 
   return (
     <header className="w-full">
@@ -28,7 +44,7 @@ const Navbar = () => {
           <p className="font-bold text-lg text-TextPrimary">DevEvents</p>
         </Link>
         {/* Desktop Nav */}
-        <ul className="hidden md:flex gap-2">
+        <ul className="hidden md:flex gap-2 items-center">
           {navLinks.map((link) => (
             <li key={link.href}>
               <Link
@@ -39,6 +55,72 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
+          {/* Show login or profile */}
+          {!session?.user ? (
+            <li>
+              <Link
+                href="/login"
+                className="px-3 py-2 rounded bg-teal-700 text-white hover:bg-teal-800 transition-colors"
+              >
+                Login
+              </Link>
+            </li>
+          ) : (
+            <li className="relative">
+              <div className="relative">
+                <button
+                  className={
+                    "flex items-center focus:outline-none transition-shadow cursor-pointer w-12 h-12 rounded-full "
+                  }
+                  onClick={() => setDropdownOpen((prev) => !prev)}
+                  aria-label="User menu"
+                  type="button"
+                  tabIndex={0}
+                >
+                  <Image
+                    src={session?.user?.profileImg || "/icons/audience.svg"}
+                    alt="profile"
+                    width={40}
+                    height={40}
+                    className="rounded-full ring-2 ring-teal-500"
+                  />
+                </button>
+                <div
+                  ref={dropdownRef}
+                  className={`absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-teal-100 z-50 transition-all duration-200 ease-in-out ${
+                    dropdownOpen
+                      ? "opacity-100 scale-100 pointer-events-auto"
+                      : "opacity-0 scale-95 pointer-events-none"
+                  }`}
+                  tabIndex={-1}
+                  aria-hidden={!dropdownOpen}
+                  onBlur={handleDropdownBlur}
+                >
+                  <div className="flex flex-col items-center p-4 border-b border-teal-100">
+                    <Image
+                      src={session?.user?.profileImg || "/icons/audience.svg"}
+                      alt="profile"
+                      width={48}
+                      height={48}
+                      className="rounded-full border border-teal-700 mb-2"
+                    />
+                    <span className="font-semibold text-teal-900 text-base">
+                      {session?.user?.name}
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {session?.user?.email}
+                    </span>
+                  </div>
+                  <button
+                    className="w-full py-2 cursor-pointer text-center text-red-600 hover:bg-teal-50 rounded-b-lg transition-colors font-semibold"
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                  >
+                    Sign out
+                  </button>
+                </div>
+              </div>
+            </li>
+          )}
         </ul>
         {/* Hamburger Icon */}
         <button
@@ -75,6 +157,60 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+            {/* Mobile: login/profile */}
+            {!session?.user ? (
+              <Link
+                href="/login"
+                className="w-full px-3 py-2 rounded bg-teal-700 text-white hover:bg-teal-800 transition-colors mt-2"
+                onClick={() => setMenuOpen(false)}
+              >
+                Login
+              </Link>
+            ) : (
+              <div className="w-full mt-2">
+                <button
+                  className="flex items-center gap-2 w-full px-3 py-2 rounded bg-white text-teal-900 border border-teal-700 hover:bg-teal-50"
+                  onClick={() => setDropdownOpen((prev) => !prev)}
+                >
+                  <Image
+                    src={session.user.profileImg || "/icons/audience.svg"}
+                    alt="profile"
+                    width={28}
+                    height={28}
+                    className="rounded-full border border-teal-700"
+                  />
+                  <span>{session.user.name}</span>
+                </button>
+                {dropdownOpen && (
+                  <div
+                    ref={dropdownRef}
+                    className="mt-2 w-full bg-white rounded-lg shadow-lg border border-teal-100 z-50 animate-fade-in"
+                  >
+                    <div className="flex flex-col items-center p-4 border-b border-teal-100">
+                      <Image
+                        src={session.user.profileImg || "/icons/audience.svg"}
+                        alt="profile"
+                        width={40}
+                        height={40}
+                        className="rounded-full border border-teal-700 mb-2"
+                      />
+                      <span className="font-semibold text-teal-900 text-base">
+                        {session.user.name}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        {session.user.email}
+                      </span>
+                    </div>
+                    <button
+                      className="w-full py-2 text-center text-red-600 hover:bg-teal-50 rounded-b-lg transition-colors font-semibold"
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
       </nav>

@@ -1,6 +1,6 @@
 import ExploreBtn from "@/components/exploreBtn";
 import EventCard from "@/components/EventCard";
-import { IEvent } from "@/models/event.model";
+import { IEvent } from "@/models/Event.model";
 import { cacheLife } from "next/cache";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;

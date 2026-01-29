@@ -5,6 +5,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FaFacebook, FaGoogle } from "react-icons/fa6";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const loginSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -21,10 +24,26 @@ const LoginPage = () => {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
+  const [serverError, setServerError] = useState<string | null>(null);
+  const router = useRouter();
 
   const onSubmit = async (data: LoginFormData) => {
-    console.log("Login Data:", data);
-    // 👉 call login API
+    setServerError(null);
+    try {
+      const res = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+      if (res?.error) {
+        setServerError(res.error || "Login failed");
+        return;
+      }
+
+      router.push("/");
+    } catch (err) {
+      setServerError(err.message || "Something went wrong");
+    }
   };
   const commonCls = "mt-3 w-full border-0 outline-0 bg-teal-500/30";
   return (
@@ -34,6 +53,9 @@ const LoginPage = () => {
         className="w-md bg-teal-900 p-6 rounded-xl shadow"
       >
         <h3 className="text-2xl font-semibold text-center mb-6">Login</h3>
+        {serverError && (
+          <p className="error text-red-400 text-center">{serverError}</p>
+        )}
 
         <input
           {...register("email")}
@@ -52,8 +74,14 @@ const LoginPage = () => {
 
         <button
           disabled={isSubmitting}
-          className="mt-5 w-full cursor-pointer bg-teal-950 py-2 rounded-md"
+          className={
+            "mt-5 w-full cursor-pointer bg-teal-950 py-2 rounded-md flex items-center justify-center gap-2 " +
+            (isSubmitting ? "opacity-60 cursor-not-allowed" : "")
+          }
         >
+          {isSubmitting && (
+            <span className="loader border-2 border-t-2 border-t-white border-white/30 rounded-full w-4 h-4 mr-2 animate-spin"></span>
+          )}
           {isSubmitting ? "Logging in..." : "Login"}
         </button>
 

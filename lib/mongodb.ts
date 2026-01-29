@@ -1,25 +1,23 @@
 import mongoose, { Connection } from "mongoose";
 
-const MONGODB_URI: string = process.env.MONGODB_URI || ""; // This line is removed
-
 interface MongooseGlobal {
   conn: Connection | null;
   promise: Promise<Connection> | null;
 }
 
 declare global {
-  // eslint-disable-next-line no-var
   var __mongooseCache: MongooseGlobal | undefined;
 }
 
 const cached: MongooseGlobal =
-  globalThis.__mongooseCache ?? (globalThis.__mongooseCache = { conn: null, promise: null });
+  globalThis.__mongooseCache ??
+  (globalThis.__mongooseCache = { conn: null, promise: null });
 
 export async function connectToDatabase(): Promise<Connection> {
   const MONGODB_URI = process.env.MONGODB_URI; // Moved inside the function
   if (!MONGODB_URI) {
     throw new Error(
-      "Please define the MONGODB_URI environment variable inside .env.local"
+      "Please define the MONGODB_URI environment variable inside .env.local",
     );
   }
   if (cached.conn) {

@@ -1,7 +1,7 @@
-import { Event } from "@/models/event.model";
 import connectToDatabase from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
+import { EventModel } from "@/models";
 
 export async function POST(req: NextRequest) {
   try {
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
 
     event.image = (uploadResult as { secure_url: string }).secure_url;
 
-    const createdEvent = await Event.create({
+    const createdEvent = await EventModel.create({
       ...event,
       tags: tags,
       agenda: agenda,
@@ -75,7 +75,7 @@ export async function GET() {
   try {
     await connectToDatabase();
 
-    const events = await Event.find().sort({ createdAt: -1 });
+    const events = await EventModel.find().sort({ createdAt: -1 });
     return NextResponse.json({
       message: "Events Fetched Successfully",
       status: 200,

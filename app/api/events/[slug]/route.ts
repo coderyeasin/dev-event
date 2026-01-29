@@ -1,6 +1,4 @@
-//Define route params type for type safety
-
-import { Event, IEvent } from "@/models/event.model";
+import { EventModel } from "@/models";
 import connectToDatabase from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -38,7 +36,7 @@ export async function GET(
     const sanitizedSlug = slug.trim().toLowerCase();
 
     // Query event by slug
-    const event = await Event.findOne({
+    const event = await EventModel.findOne({
       slug: sanitizedSlug,
     }).lean();
 
