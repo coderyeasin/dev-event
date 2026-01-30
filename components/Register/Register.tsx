@@ -143,14 +143,14 @@ const RegisterPage = () => {
         <div className="flex flex-col lg:flex-row items-center gap-5">
           <button
             type="button"
-            className="mt-4 w-full cursor-pointer bg-red-600 py-2 rounded-md flex items-center justify-center gap-2"
+            className="mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
           >
             <FaGoogle />
             Google
           </button>
           <button
             type="button"
-            className="mt-4 w-full cursor-pointer bg-red-600 py-2 rounded-md flex items-center justify-center gap-2"
+            className="mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
           >
             <FaFacebook />
             Facebook
