@@ -4,8 +4,9 @@ import { LoginSchema } from "@/lib/validators/login.schema";
 import connectToDatabase from "@/lib/mongodb";
 import { User } from "@/models/User.model";
 import { Session } from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
@@ -42,7 +43,13 @@ export const authOptions = {
       }
       return token;
     },
-    async session({ session, token }: { session: Session; token: any }) {
+    async session({
+      session,
+      token,
+    }: {
+      session: Session;
+      token: Record<string, unknown>;
+    }) {
       if (token) {
         session.user.id = token.id as string;
         session.user.profileImg = token.profileImg as string;
