@@ -39,7 +39,7 @@ const EventSchema: Schema<IEvent> = new Schema<IEvent>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Unique index for slug
@@ -93,12 +93,12 @@ EventSchema.pre<IEvent>("validate", function (next) {
       (Array.isArray(this[field]) && this[field].length === 0)
     ) {
       return next(
-        new Error(`Field '${field}' is required and cannot be empty.`)
+        new Error(`Field '${field}' is required and cannot be empty.`),
       );
     }
   }
   next();
 });
 
-export const Event: Model<IEvent> =
+export const EventModel: Model<IEvent> =
   mongoose.models.Event || mongoose.model<IEvent>("Event", EventSchema);

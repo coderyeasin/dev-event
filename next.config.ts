@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 export const cacheLife = (profile: string) => {
-  const profiles: Record<string, { stale: number; revalidate: number; expire: number }> = {
+  const profiles: Record<
+    string,
+    { stale: number; revalidate: number; expire: number }
+  > = {
     hours: { stale: 60 * 60, revalidate: 60 * 60, expire: 3 * 60 * 60 },
   };
   return profiles[profile];
@@ -14,9 +17,23 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   images: {
     remotePatterns: [
+      // Cloudinary
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
+      },
+      // Google OAuth profile images
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+
+      // Facebook profile images
+      {
+        protocol: "https",
+        hostname: "platform-lookaside.fbsbx.com",
+        pathname: "/**",
       },
     ],
   },

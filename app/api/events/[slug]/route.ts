@@ -1,6 +1,4 @@
-//Define route params type for type safety
-
-import { Event, IEvent } from "@/database/event.model";
+import { EventModel } from "@/models";
 import connectToDatabase from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -17,7 +15,7 @@ type RouteParams = {
 
 export async function GET(
   req: NextRequest,
-  { params }: RouteParams
+  { params }: RouteParams,
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
@@ -30,7 +28,7 @@ export async function GET(
         {
           message: "Invalid or missing slug parameter",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -38,7 +36,7 @@ export async function GET(
     const sanitizedSlug = slug.trim().toLowerCase();
 
     // Query event by slug
-    const event = await Event.findOne({
+    const event = await EventModel.findOne({
       slug: sanitizedSlug,
     }).lean();
 
@@ -48,7 +46,7 @@ export async function GET(
         {
           message: `Event with slug ${sanitizedSlug} not found`,
         },
-        { status: 404 }
+        { status: 404 },
       );
     }
 
@@ -57,7 +55,7 @@ export async function GET(
         message: "Event fetched Successfully",
         event,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (e) {
     if (process.env.NODE_ENV === "development") {
@@ -83,7 +81,7 @@ export async function GET(
       {
         message: "An unexpected error occurred",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

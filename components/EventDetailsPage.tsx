@@ -1,4 +1,4 @@
-import { IEvent } from "@/database/event.model";
+import { IEvent } from "@/models/Event.model";
 import { getSimilarEventsBySlug } from "@/lib/actions/event.actions";
 import { cacheLife } from "next/cache";
 import Image from "next/image";

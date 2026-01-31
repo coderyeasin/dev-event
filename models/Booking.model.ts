@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document, Model, Types } from "mongoose";
-import { Event } from "./event.model";
+import { EventModel } from "./Event.model";
 
 export interface IBooking extends Document {
   eventId: Types.ObjectId;
@@ -33,7 +33,7 @@ const BookingSchema: Schema<IBooking> = new Schema<IBooking>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 /**
@@ -41,7 +41,7 @@ const BookingSchema: Schema<IBooking> = new Schema<IBooking>(
  */
 BookingSchema.pre<IBooking>("save", async function (next) {
   // Validate eventId references an existing Event
-  const eventExists = await Event.exists({ _id: this.eventId });
+  const eventExists = await EventModel.exists({ _id: this.eventId });
   if (!eventExists) {
     return next(new Error("Referenced event does not exist."));
   }

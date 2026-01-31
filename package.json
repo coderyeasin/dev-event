@@ -9,8 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^2.11.1",
+    "@hookform/resolvers": "^5.2.2",
     "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "cloudinary": "^2.8.0",
     "clsx": "^2.1.1",
@@ -21,12 +22,12 @@
     "next-auth": "^4.24.13",
     "ogl": "^1.0.11",
     "posthog-js": "^1.302.2",
-    "prisma": "^7.3.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-hook-form": "^7.71.1",
     "react-icons": "^5.5.0",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
