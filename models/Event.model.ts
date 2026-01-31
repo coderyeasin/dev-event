@@ -43,7 +43,7 @@ const EventSchema: Schema<IEvent> = new Schema<IEvent>(
 );
 
 // Unique index for slug
-EventSchema.index({ slug: 1 }, { unique: true });
+// EventSchema.index({ slug: 1 }, { unique: true });
 
 /**
  * Pre-validate hook for slug generation, date normalization, and validation
