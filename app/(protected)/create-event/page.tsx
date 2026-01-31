@@ -1,7 +1,6 @@
 "use client";
 import CreateEvent from "@/components/CreateEvent/CreateEvent";
 import { useSession } from "next-auth/react";
-
 import { Suspense } from "react";
 
 export default function Page() {
@@ -15,13 +14,13 @@ export default function Page() {
     );
   }
 
-  if (!session?.user) return null;
-
   return (
     <main className="py-12">
-      <Suspense fallback={<p>loading...</p>}>
-        <CreateEvent />
-      </Suspense>
+      {session?.user ? (
+        <Suspense fallback={<p>loading...</p>}>
+          <CreateEvent />
+        </Suspense>
+      ) : null}
     </main>
   );
 }
