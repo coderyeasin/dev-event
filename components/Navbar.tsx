@@ -18,10 +18,10 @@ const Navbar = () => {
   const { data: session } = useSession();
 
   // Log user info in console for debugging
-  // if (session?.user) {
-  //   // eslint-disable-next-line no-console
-  //   console.log("Logged in user:", session.user);
-  // }
+  if (session?.user) {
+    // eslint-disable-next-line no-console
+    console.log("Logged in user:", session.user);
+  }
 
   // Dropdown close on blur
   const handleDropdownBlur = (e: React.FocusEvent<HTMLDivElement>) => {
@@ -29,6 +29,8 @@ const Navbar = () => {
       setDropdownOpen(false);
     }
   };
+  const profileSrc =
+    session?.user?.profileImg ?? session?.user?.image ?? "/icons/audience.svg";
 
   return (
     <header className="w-full">
@@ -78,11 +80,12 @@ const Navbar = () => {
                   tabIndex={0}
                 >
                   <Image
-                    src={session?.user?.profileImg || "/icons/audience.svg"}
+                    src={profileSrc}
                     alt="profile"
                     width={40}
                     height={40}
-                    className="rounded-full ring-2 ring-teal-500"
+                    priority
+                    className="rounded-full ring-2 ring-teal-500 object-cover"
                   />
                 </button>
                 <div
@@ -98,11 +101,12 @@ const Navbar = () => {
                 >
                   <div className="flex flex-col items-center p-4 border-b border-teal-100">
                     <Image
-                      src={session?.user?.profileImg || "/icons/audience.svg"}
+                      src={profileSrc}
                       alt="profile"
                       width={48}
                       height={48}
-                      className="rounded-full border border-teal-700 mb-2"
+                      priority
+                      className="rounded-full border border-teal-700 mb-2 object-cover"
                     />
                     <span className="font-semibold text-teal-900 text-base">
                       {session?.user?.name}
