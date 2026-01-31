@@ -15,13 +15,13 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   // Log user info in console for debugging
-  if (session?.user) {
-    // eslint-disable-next-line no-console
-    console.log("Logged in user:", session.user);
-  }
+  // if (session?.user) {
+  //   // eslint-disable-next-line no-console
+  //   console.log("Logged in user:", session.user);
+  // }
 
   // Dropdown close on blur
   const handleDropdownBlur = (e: React.FocusEvent<HTMLDivElement>) => {
@@ -57,8 +57,17 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
-          {/* Show login or profile */}
-          {!session?.user ? (
+          {/* Show spinner */}
+          {status === "loading" ? (
+            <li>
+              <div className="flex items-center justify-center w-12 h-12">
+                <span
+                  className="inline-block w-7 h-7 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"
+                  aria-label="Loading"
+                ></span>
+              </div>
+            </li>
+          ) : !session?.user ? (
             <li>
               <Link
                 href="/login"
