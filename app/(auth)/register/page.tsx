@@ -4,16 +4,20 @@ import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
-export const dynamic = "force-dynamic";
-
-export default async function Register() {
+async function RegisterContent() {
   const session = await getServerSession(authOptions);
+
   if (session) {
     redirect("/");
   }
+
+  return <RegisterPage />;
+}
+
+export default function Register() {
   return (
-    <Suspense fallback={<p>loading...</p>}>
-      <RegisterPage />
+    <Suspense fallback={<div className="p-10 text-center">Loading...</div>}>
+      <RegisterContent />
     </Suspense>
   );
 }
