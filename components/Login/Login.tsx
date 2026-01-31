@@ -88,20 +88,22 @@ const LoginPage = () => {
         <p className="mt-4 text-center text-2xl font-bold">OR</p>
 
         <div className="flex flex-col lg:flex-row items-center gap-5">
-          <button
-            type="button"
-            className="mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
-          >
-            <FaGoogle />
-            Google
-          </button>
-          <button
-            type="button"
-            className=" mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
-          >
-            <FaFacebook />
-            Facebook
-          </button>
+            <button
+              type="button"
+              className="mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
+              onClick={() => signIn("google", { callbackUrl: "/" })}
+            >
+              <FaGoogle />
+              Google
+            </button>
+            <button
+              type="button"
+              className="mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
+              onClick={() => signIn("facebook", { callbackUrl: "/" })}
+            >
+              <FaFacebook />
+              Facebook
+            </button>
         </div>
         <Link href="/register" className="mt-4 text-center text-sm block">
           Don't have an account?{" "}
