@@ -17,12 +17,6 @@ const Navbar = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { data: session, status } = useSession();
 
-  // Log user info in console for debugging
-  // if (session?.user) {
-  //   // eslint-disable-next-line no-console
-  //   console.log("Logged in user:", session.user);
-  // }
-
   // Dropdown close on blur
   const handleDropdownBlur = (e: React.FocusEvent<HTMLDivElement>) => {
     if (!e.currentTarget.contains(e.relatedTarget as Node)) {

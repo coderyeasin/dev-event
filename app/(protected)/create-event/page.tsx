@@ -2,7 +2,7 @@
 import CreateEvent from "@/components/CreateEvent/CreateEvent";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 
 export default function Page() {
   const { data: session, status } = useSession();
@@ -26,9 +26,9 @@ export default function Page() {
 
   return (
     <main className="py-12">
-      <React.Suspense fallback={<p>loading...</p>}>
+      <Suspense fallback={<p>loading...</p>}>
         <CreateEvent />
-      </React.Suspense>
+      </Suspense>
     </main>
   );
 }
