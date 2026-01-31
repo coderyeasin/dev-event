@@ -1,18 +1,11 @@
 "use client";
 import CreateEvent from "@/components/CreateEvent/CreateEvent";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import React, { Suspense, useEffect } from "react";
+
+import { Suspense } from "react";
 
 export default function Page() {
   const { data: session, status } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.replace("/login");
-    }
-  }, [status, router]);
 
   if (status === "loading") {
     return (
