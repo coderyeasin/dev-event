@@ -7,7 +7,7 @@ import React from "react";
 import BookEvent from "./BookEvent";
 import EventCard from "./EventCard";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = process.env.NEXTAUTH_URL;
 
 const EventDetailItems = ({
   icon,

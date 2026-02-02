@@ -91,13 +91,15 @@ const LoginPage = () => {
           <button
             type="button"
             className="mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
+            onClick={() => signIn("google", { callbackUrl: "/" })}
           >
             <FaGoogle />
             Google
           </button>
           <button
             type="button"
-            className=" mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
+            className="mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
+            onClick={() => signIn("facebook", { callbackUrl: "/" })}
           >
             <FaFacebook />
             Facebook

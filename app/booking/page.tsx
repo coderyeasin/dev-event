@@ -2,7 +2,7 @@ import BookingHome from "@/components/Booking/Booking";
 import { cacheLife } from "next/cache";
 import React, { Suspense } from "react";
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = process.env.NEXTAUTH_URL;
 
 const BookingPage = async () => {
   "use cache";
