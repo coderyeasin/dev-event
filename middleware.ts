@@ -2,19 +2,22 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-export async function proxy(req: NextRequest) {
+// 1. Function MUST be named 'middleware', not 'proxy'
+export async function middleware(req: NextRequest) {
   const token = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
   });
 
   const isAuthenticated = !!token;
-  const pathname = req.nextUrl.pathname;
+  const { pathname } = req.nextUrl;
 
+  // Protect create-event
   if (pathname.startsWith("/create-event") && !isAuthenticated) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
+  // Redirect if already logged in
   if (
     (pathname.startsWith("/login") || pathname.startsWith("/register")) &&
     isAuthenticated
@@ -26,5 +29,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/create-event/:path*", "/login", "/register"],
+  matcher: ["/create-event", "/login", "/register"],
 };
