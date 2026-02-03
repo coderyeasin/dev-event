@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-// 1. Function MUST be named 'middleware', not 'proxy'
 export async function middleware(req: NextRequest) {
   const token = await getToken({
     req,
