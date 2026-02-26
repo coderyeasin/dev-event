@@ -11,11 +11,8 @@ export async function proxy(req: NextRequest) {
   const isAuthenticated = !!token;
   const { pathname } = req.nextUrl;
 
-  // Protect routes
+  // Protect create-event
   if (pathname.startsWith("/create-event") && !isAuthenticated) {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
-  if (pathname.startsWith("/booking") && !isAuthenticated) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
@@ -31,5 +28,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/create-event/:path*", "/booking/:path*", "/login", "/register"],
+  matcher: ["/create-event/:path*", "/login", "/register"],
 };
