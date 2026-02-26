@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import CreateEvent from "@/components/CreateEvent/CreateEvent";
 
 const page = () => {

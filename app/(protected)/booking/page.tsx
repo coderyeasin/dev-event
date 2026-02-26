@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import BookingHome from "@/components/Booking/Booking";
 import { cacheLife } from "next/cache";
 import React, { Suspense } from "react";
