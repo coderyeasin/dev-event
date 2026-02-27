@@ -1,12 +1,15 @@
+import { getServerSession } from "next-auth/next";
+import { redirect } from "next/navigation";
 import BookingHome from "@/components/Booking/Booking";
-import { cacheLife } from "next/cache";
-import React, { Suspense } from "react";
+import { authOptions } from "@/lib/auth";
 
 const BASE_URL = process.env.NEXTAUTH_URL;
 
-const BookingPage = async () => {
-  "use cache";
-  cacheLife("hours");
+export default async function ProtectedBookingPage() {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    redirect("/login?callbackUrl=/booking");
+  }
   let booking = [];
   let fetchError = null;
   try {
@@ -18,24 +21,20 @@ const BookingPage = async () => {
     try {
       const data = await res.json();
       booking = data.booking || [];
-    } catch (jsonErr) {
+    } catch {
       const text = await res.text();
       throw new Error(`Failed to parse bookings response: ${text}`);
     }
-  } catch (err: any) {
-    fetchError = err.message || "Unknown error";
+  } catch (err) {
+    fetchError = (err as Error).message || "Unknown error";
   }
   return (
     <main>
-      <Suspense fallback={<div>loading...</div>}>
-        {fetchError ? (
-          <div className="text-red-600 text-center py-4">{fetchError}</div>
-        ) : (
-          <BookingHome booking={booking} />
-        )}
-      </Suspense>
+      {fetchError ? (
+        <div className="text-red-600 text-center py-4">{fetchError}</div>
+      ) : (
+        <BookingHome booking={booking} />
+      )}
     </main>
   );
-};
-
-export default BookingPage;
+}
