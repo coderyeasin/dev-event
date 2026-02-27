@@ -1,16 +1,17 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import CreateEvent from "@/components/CreateEvent/CreateEvent";
+import dynamic from "next/dynamic";
+import React, { Suspense } from "react";
 
-export default async function ProtectedCreateEventPage() {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    redirect("/login?callbackUrl=/create-event");
-  }
+const CreateEvent = dynamic(
+  () => import("@/components/CreateEvent/CreateEvent"),
+  { ssr: true },
+);
+
+export default function ProtectedCreateEventPage() {
   return (
     <main className="py-12">
-      <CreateEvent />
+      <Suspense fallback={<div>Loading...</div>}>
+        <CreateEvent />
+      </Suspense>
     </main>
   );
 }

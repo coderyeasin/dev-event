@@ -11,9 +11,15 @@ export async function proxy(req: NextRequest) {
   const isAuthenticated = !!token;
   const { pathname } = req.nextUrl;
 
-  // Protect create-event
-  if (pathname.startsWith("/create-event") && !isAuthenticated) {
-    return NextResponse.redirect(new URL("/login", req.url));
+  // Protected
+  if (
+    (pathname.startsWith("/create-event") || pathname.startsWith("/booking")) &&
+    !isAuthenticated
+  ) {
+    const callbackUrl = pathname;
+    return NextResponse.redirect(
+      new URL(`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`, req.url),
+    );
   }
 
   // Redirect if already logged in
@@ -21,6 +27,10 @@ export async function proxy(req: NextRequest) {
     (pathname.startsWith("/login") || pathname.startsWith("/register")) &&
     isAuthenticated
   ) {
+    const callbackUrl = req.nextUrl.searchParams.get("callbackUrl");
+    if (callbackUrl) {
+      return NextResponse.redirect(new URL(callbackUrl, req.url));
+    }
     return NextResponse.redirect(new URL("/", req.url));
   }
 
@@ -28,5 +38,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/create-event/:path*", "/login", "/register"],
+  matcher: ["/create-event/:path*", "/booking/:path*", "/login", "/register"],
 };

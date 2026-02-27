@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FaFacebook, FaGoogle } from "react-icons/fa6";
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 
 const loginSchema = z.object({
@@ -26,6 +26,8 @@ const LoginPage = () => {
   });
   const [serverError, setServerError] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const onSubmit = async (data: LoginFormData) => {
     setServerError(null);
@@ -33,14 +35,14 @@ const LoginPage = () => {
       const res = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        redirect: false,
+        redirect: true,
+        callbackUrl: callbackUrl,
       });
       if (res?.error) {
         setServerError(res.error || "Login failed");
         return;
       }
-
-      router.push("/");
+      // No need to push manually, signIn will handle redirect
     } catch (err) {
       setServerError(err.message || "Something went wrong");
     }
@@ -91,7 +93,7 @@ const LoginPage = () => {
           <button
             type="button"
             className="mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
-            onClick={() => signIn("google", { callbackUrl: "/" })}
+            onClick={() => signIn("google", { callbackUrl })}
           >
             <FaGoogle />
             Google
@@ -99,7 +101,7 @@ const LoginPage = () => {
           <button
             type="button"
             className="mt-4 w-full cursor-pointer bg-teal-600 py-2 rounded-md flex items-center justify-center gap-2"
-            onClick={() => signIn("facebook", { callbackUrl: "/" })}
+            onClick={() => signIn("facebook", { callbackUrl })}
           >
             <FaFacebook />
             Facebook
