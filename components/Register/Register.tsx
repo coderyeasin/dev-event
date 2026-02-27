@@ -76,9 +76,9 @@ const RegisterPage = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-md bg-teal-900 p-6 rounded-xl shadow"
       >
-        {/* <h3 className="text-2xl font-semibold text-center mb-6">
+        <h3 className="text-2xl font-semibold text-center mb-6">
           Create an Account
-        </h3> */}
+        </h3>
         {serverError && (
           <p className="error text-red-400 text-center">{serverError}</p>
         )}
